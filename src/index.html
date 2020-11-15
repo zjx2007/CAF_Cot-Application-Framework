@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cot Application Framework</title>
+    <script type="text/javascript">
+        const {
+            ipcRenderer,
+            app
+        } = require("electron");
+    </script>
+</head>
+
+<body>
+    <style type="text/css">
+        ::-webkit-scrollbar {
+            width: 9px;
+            height: 9px;
+            background: #282923;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #282923;
+            border-radius: 4px;
+        }
+
+        :hover::-webkit-scrollbar-thumb {
+            background: rgba(136, 136, 136, 0.4);
+        }
+
+        :hover::-webkit-scrollbar-track {
+            background: rgba(136, 136, 136, 0.1);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            display: block;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        * {
+            transition: 0.3s;
+        }
+
+        body {
+            font-family: 'SEgoe';
+            background-color: #282923;
+            color: white;
+        }
+
+        @font-face {
+            font-family: 'SEgoe';
+            src: url('segoeuil.ttf');
+        }
+
+        .titlebar {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            height: 30px;
+            -webkit-app-region: drag;
+            background-color: #282923;
+            color: white;
+            z-index: 50000;
+        }
+
+        .titlebar span {
+            color: white;
+            position: absolute;
+            top: 6px;
+            margin-left: 7px;
+            font-size: 14px;
+        }
+
+        .controlbtn {
+            width: 45px;
+            height: 29px;
+            position: absolute;
+            -webkit-app-region: none;
+            background-color: #282923;
+            -webkit-user-select: none;
+        }
+
+        #closebtn {
+            right: 1px;
+            top: 1px;
+        }
+
+        #closebtn:hover {
+            background-color: rgba(255, 50, 50, .5);
+        }
+
+        #closebtn:active {
+            background-color: rgba(255, 150, 150, .7);
+        }
+
+        .panelistic_btngroup {
+            top: 5px;
+            width: 435px;
+            height: 95px;
+            overflow: hidden;
+            display: block;
+            user-select: none;
+            position: relative;
+        }
+
+
+        .panelistic_btn {
+            top: 36px;
+            width: 435px;
+            height: 95px;
+            overflow: hidden;
+            display: block;
+            user-select: none;
+            position: relative;
+        }
+
+        .panelistic {
+            border: 1px solid #323328;
+            margin: 6px;
+            border-radius: 4px;
+            padding: 2px;
+            padding-left: 4px;
+            padding-right: 4px;
+            top: 14px;
+            text-align: left;
+            cursor: pointer;
+            width: ;
+        }
+
+        .panelistic:hover {
+            background-color: #4d4d4d;
+        }
+
+        .panelistic_space {
+            height: 30px;
+            width: 50px;
+            display: block;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .panelistic:active {
+            background-color: #777;
+        }
+
+        .panelistic span {
+            position: absolute;
+            margin-top: 4px;
+            margin-left: 5px;
+        }
+
+        .panelistic img {
+            margin-top: 4px;
+            margin-left: 5px;
+        }
+
+        #minbtn {
+            right: 91px;
+            top: 1px;
+        }
+
+        #maxbtn {
+            right: 46px;
+            top: 1px;
+        }
+
+        #closebtn {
+            right: 1px;
+            top: 1px;
+        }
+
+        #defullbtn {
+            right: 46px;
+            top: 1px;
+        }
+
+        #minbtn:hover {
+            background-color: rgba(100, 100, 100, .5);
+        }
+
+        #maxbtn:hover {
+            background-color: rgba(100, 100, 100, .5);
+        }
+
+        #closebtn:hover {
+            background-color: rgba(255, 50, 50, .5);
+        }
+
+        #defullbtn:hover {
+            background-color: rgba(100, 100, 100, .5);
+        }
+
+        #minbtn:active {
+            background-color: rgba(200, 200, 200, .7);
+        }
+
+        #maxbtn:active {
+            background-color: rgba(200, 200, 200, .7);
+        }
+
+        #closebtn:active {
+            background-color: rgba(255, 150, 150, .7);
+        }
+
+        #defullbtn:active {
+            background-color: rgba(200, 200, 200, .7);
+        }
+
+        body select {
+                outline: none;
+                background-color: #28292355;
+                border: 1px dashed #ddd;
+                color: white;
+                border-radius: 3px;
+                min-width: 40%;
+                padding: 5px;
+                margin: 5px;
+                user-select: all;
+                appearance: none;
+            }
+    </style>
+    <div class="titlebar">
+        <img src="../bin/icon.png" height="20" style="margin-top: 6px;margin-left: 8px;">
+        <span id="titletext">Cot Application Framework</span>
+        <img src="img/window/min.png" class="controlbtn" id="minbtn">
+        <img src="img/window/max.png" class="controlbtn" id="maxbtn">
+        <img src="img/window/Close.svg" class="controlbtn" id="closebtn">
+        <img src="img/window/defull.png" class="controlbtn" id="defullbtn" style="display: none;" onclick="elect.ipcRenderer.send('fullscr');">
+    </div>
+    <div class="panelistic_space"></div>
+    <p style="display: inline;">This is a paragraph which means it is a seprate block. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec pulvinar augue, ac rhoncus sem. Integer quis ipsum tempus, scelerisque sapien ut, varius massa. Phasellus porta nunc vel elit ullamcorper, nec pulvinar turpis ornare. Nunc ut dolor fringilla, dictum leo quis, dapibus tellus. Morbi eu felis urna. Aenean ultricies purus lectus, ac feugiat mi pulvinar ac. Praesent facilisis id tellus placerat laoreet. Aliquam varius quis massa non finibus. Vestibulum dignissim turpis in sapien efficitur, maximus varius lorem fermentum. Aenean egestas sollicitudin nibh nec sollicitudin. Vivamus eu erat sit amet urna ultricies ornare. Integer eleifend rhoncus metus.</p>
+    <h1>Heading 1</h1>
+    <h2>Heading 2</h2>
+    <h3>Heading 3</h3>
+    <h4>Heading 4</h4>
+    <h5>Heading 5</h5>
+    <h6>Heading 6</h6>
+    <table class="panelistic_btngroup" id="panelistic_btngroup">
+        <tr>
+            <td class="panelistic" rowspan="3" style="vertical-align: top;" width="140px">This is a:<br><span id="statusft" style="font-size: 30px;width: 130px;text-align: center;color: yellow">Group</span></td>
+            <td class="panelistic" colspan="2" rowspan="2" style="vertical-align: top;" width="200px">First grid up:<br><span id='dtit'>First grid down.</span></td>
+            <td class="panelistic" width="65px" onclick="nothing()">Leftbtn1</td>
+        </tr>
+        <tr>
+            <td class="panelistic" width="65px" onclick="nothing()">Leftbtn2</td>
+        </tr>
+        <tr>
+            <td class="panelistic" onclick="nothing()">New data</td>
+            <td class="panelistic" onclick="nothing()">New datas</td>
+            <td class="panelistic" onclick="nothing()">Old datas</td>
+        </tr>
+    </table>
+    <br>
+    <script>
+        function nothing() {
+
+        }
+
+        function _(thi) {
+            return document.getElementById(thi);
+        }
+
+        function __(thi) {
+            return document.getElementById(thi).value;
+        }
+    </script>
+    <script src="window.js"></script>
+</body>
+
+</html>

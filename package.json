@@ -1,0 +1,17 @@
+{
+  "name": "com.cot.framework",
+  "version": "0.0.0",
+  "description": "Cot standard application framework",
+  "main": "index.js",
+  "devDependencies": {
+    "electron": "^10.0.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-packager . Cot-Framework --all --out ./built --app-version 1.2.1 --overwrite --icon bin/icon.png --asar   &&   xcopy bin built\\Cot-Framework-win32-x64\\bin\\"
+  },
+  "author": "Cot",
+  "dependencies": {
+    "node-cmd": "^3.0.0"
+  }
+}

@@ -6,4 +6,3 @@ If you are using electron for developing, you can use the cot application framew
 ![image](https://raw.fastgit.org/zjx2007/CAF_Cot-Application-Framework/main/Screenshot1.png)
 ## Credits
 [Electron](https://github.com/electron/electron "Electron").
-[Gnirehtet](https://github.com/Genymobile/gnirehtet "Gnirehtet") by Genymobile.

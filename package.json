@@ -4,7 +4,7 @@
   "description": "Cot standard application framework",
   "main": "index.js",
   "devDependencies": {
-    "electron": "^10.0.0"
+    "electron": "^10.1.6"
   },
   "scripts": {
     "start": "electron .",
